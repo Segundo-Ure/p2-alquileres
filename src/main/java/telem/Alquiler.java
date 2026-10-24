@@ -6,16 +6,19 @@ import java.time.temporal.ChronoUnit;
 import org.json.JSONObject;
 
 /**
- * Modela un alquiler de un vehículo por parte de un cliente, con fechas de inicio y fin.
- * Almacena los alquileres realizados en un array estático y proporciona métodos para calcular el precio del alquiler.
+ * Modela un alquiler de un vehículo por parte de un cliente, con fechas de
+ * inicio y fin.
+ * Almacena los alquileres realizados en un array estático y proporciona métodos
+ * para calcular el precio del alquiler.
  * Alquiler
  */
 public class Alquiler {
-    
+
     private Vehiculo vehiculo;
     private Cliente cliente;
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
+    private IcalculadorPrecio calculadorPrecio;
 
     private static Alquiler[] alquileres = new Alquiler[1000];
 
@@ -30,7 +33,7 @@ public class Alquiler {
     }
 
     public static Alquiler[] obtenerAlquileres() {
-        return alquileres; 
+        return alquileres;
     }
 
     public static void agregarAlquiler(Alquiler alquiler) {
@@ -64,7 +67,41 @@ public class Alquiler {
         return dias * PRECIO_BASE;
     }
 
-    @Override 
+    /**
+     * Calcula el precio del alquiler aplicando la política de precios indicada.
+     * Selecciona el calculador (estrategia) que corresponde a la política
+     * y le delega el cálculo.
+     * 
+     * @param fechaInicio primer día del alquiler.
+     * @param fechaFin    último día del alquiler.
+     * @param politica    política de precios a aplicar.
+     * @param vehiculo    vehículo alquilado.
+     * @return precio total del alquiler.
+     */
+    public int calcularPrecioAlquiler(LocalDate fechaInicio, LocalDate fechaFin,
+            PoliticasDePrecios politica, Vehiculo vehiculo) {
+
+        switch (politica) {
+            case Normal:
+                calculadorPrecio = new CalculadorPrecioNormal();
+                break;
+            case TemporadaAlta:
+                calculadorPrecio = new CalculadorPrecioTemporadaAlta();
+                break;
+            case Oferton:
+                calculadorPrecio = new CalculadorPrecioOferton();
+                break;
+            case ClienteFrecuente:
+                calculadorPrecio = new CalculadorPrecioClienteFrecuente();
+                break;
+            default:
+                throw new IllegalArgumentException("Política de precios desconocida: " + politica);
+        }
+
+        return calculadorPrecio.calcularPrecioAlquiler(fechaInicio, fechaFin, vehiculo);
+    }
+
+    @Override
     public String toString() {
         return new JSONObject(this).toString();
     }
@@ -83,6 +120,21 @@ public class Alquiler {
         Alquiler alquiler2 = new Alquiler(vehiculo2, cliente1, hoy, hoy.plusDays(3)); // Alquiler de 3 días
 
         System.out.println(alquiler2.toString());
+        System.out.println("--------------------------------------------------------");
+
+        // Ejemplo de uso del patrón Estrategia: mismo alquiler, distintas políticas de
+        // precios
+        LocalDate inicio = LocalDate.of(2026, 11, 1);
+        LocalDate fin = LocalDate.of(2026, 11, 10); // 10 días (del 1 al 10, ambos incluidos)
+        Alquiler alquiler3 = new Alquiler(vehiculo1, cliente1, inicio, fin);
+
+        System.out.println("Precio de alquilar " + vehiculo1.getTipo() + " " + vehiculo1.getCategoria()
+                + " (" + vehiculo1.getPrecioBase() + " euros/día) del " + inicio + " al " + fin + ":");
+
+        for (PoliticasDePrecios politica : PoliticasDePrecios.values()) {
+            int precio = alquiler3.calcularPrecioAlquiler(inicio, fin, politica, vehiculo1);
+            System.out.println("  " + politica + ": " + precio + " euros");
+        }
         System.out.println("--------------------------------------------------------");
     }
 }
