@@ -32,6 +32,20 @@ public class Alquiler {
         this.fechaFin = fechaFin;
     }
 
+    /**
+     * Deserialización: reconstruye un Alquiler a partir de su representación JSON.
+     * El vehículo se crea con FactoriaVehiculos porque a priori no se sabe
+     * de qué subclase es; el cliente y las fechas tienen un único tipo posible.
+     * @param jsonString representación JSON del alquiler (la que genera toString).
+     */
+    public Alquiler(String jsonString) {
+        JSONObject json = new JSONObject(jsonString);
+        this.vehiculo = FactoriaVehiculos.getVehiculo(json.getJSONObject("vehiculo").toString());
+        this.cliente = new Cliente(json.getJSONObject("cliente").toString());
+        this.fechaInicio = LocalDate.parse(json.getString("fechaInicio"));
+        this.fechaFin = LocalDate.parse(json.getString("fechaFin"));
+    }
+
     public static Alquiler[] obtenerAlquileres() {
         return alquileres;
     }

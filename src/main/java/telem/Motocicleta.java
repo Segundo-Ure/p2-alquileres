@@ -1,5 +1,7 @@
 package telem;
 
+import org.json.JSONObject;
+
 public class Motocicleta extends Vehiculo {
 
     int cilindrada;
@@ -9,6 +11,16 @@ public class Motocicleta extends Vehiculo {
     ) {
         super(matricula, categoria, annio);
         this.cilindrada = cilindrada;
+    }
+
+    /**
+     * Deserialización: reconstruye una Motocicleta a partir de su representación JSON.
+     * @param jsonString representación JSON de la motocicleta.
+     */
+    public Motocicleta(String jsonString) {
+        super(jsonString);
+        JSONObject json = new JSONObject(jsonString);
+        this.cilindrada = json.getInt("cilindrada");
     }
 
     public int getCilindrada() {

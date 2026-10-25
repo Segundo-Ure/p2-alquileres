@@ -20,6 +20,19 @@ public abstract class Vehiculo {
         this.annio = annio;
     }
 
+    /**
+     * Deserialización: reconstruye los atributos comunes a partir de su
+     * representación JSON. Las subclases lo invocan con super(jsonString).
+     * @param jsonString representación JSON del vehículo (la que genera toString).
+     */
+    protected Vehiculo(String jsonString) {
+        JSONObject json = new JSONObject(jsonString);
+        this.matricula = json.getString("matricula");
+        this.categoria = Categoria.valueOf(json.getString("categoria"));
+        this.annio = json.getInt("annio");
+        this.disponible = json.getBoolean("disponible");
+    }
+
     public String getMatricula() {
         return matricula;
     }

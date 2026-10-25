@@ -16,6 +16,16 @@ public class Cliente {
         this.dni = dni;
     }
 
+    /**
+     * Deserialización: reconstruye un Cliente a partir de su representación JSON.
+     * @param jsonString representación JSON del cliente (la que genera toString).
+     */
+    public Cliente(String jsonString) {
+        JSONObject json = new JSONObject(jsonString);
+        this.nombre = json.getString("nombre");
+        this.dni = json.getString("dni");
+    }
+
     public String getNombre() {
         return nombre;
     }
