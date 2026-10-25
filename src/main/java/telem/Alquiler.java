@@ -36,6 +36,7 @@ public class Alquiler {
      * Deserialización: reconstruye un Alquiler a partir de su representación JSON.
      * El vehículo se crea con FactoriaVehiculos porque a priori no se sabe
      * de qué subclase es; el cliente y las fechas tienen un único tipo posible.
+     * 
      * @param jsonString representación JSON del alquiler (la que genera toString).
      */
     public Alquiler(String jsonString) {
@@ -83,8 +84,8 @@ public class Alquiler {
 
     /**
      * Calcula el precio del alquiler aplicando la política de precios indicada.
-     * Selecciona el calculador (estrategia) que corresponde a la política
-     * y le delega el cálculo.
+     * Obtiene de FactoriaCalculadorPrecio el calculador (estrategia) que
+     * corresponde a la política y le delega el cálculo.
      * 
      * @param fechaInicio primer día del alquiler.
      * @param fechaFin    último día del alquiler.
@@ -95,22 +96,7 @@ public class Alquiler {
     public int calcularPrecioAlquiler(LocalDate fechaInicio, LocalDate fechaFin,
             PoliticasDePrecios politica, Vehiculo vehiculo) {
 
-        switch (politica) {
-            case Normal:
-                calculadorPrecio = new CalculadorPrecioNormal();
-                break;
-            case TemporadaAlta:
-                calculadorPrecio = new CalculadorPrecioTemporadaAlta();
-                break;
-            case Oferton:
-                calculadorPrecio = new CalculadorPrecioOferton();
-                break;
-            case ClienteFrecuente:
-                calculadorPrecio = new CalculadorPrecioClienteFrecuente();
-                break;
-            default:
-                throw new IllegalArgumentException("Política de precios desconocida: " + politica);
-        }
+        calculadorPrecio = FactoriaCalculadorPrecio.getCalculador(politica);
 
         return calculadorPrecio.calcularPrecioAlquiler(fechaInicio, fechaFin, vehiculo);
     }
