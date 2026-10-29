@@ -130,8 +130,8 @@ public class GestorAlquileresFicheroTest {
     @Test
     public void cargarConservaLaDisponibilidadDeLosVehiculos() throws IOException {
         anadirAlquileresDeEjemplo(gestor);   // marca el turismo TNA2020 como disponible
+        gestor.obtenerVehiculos("Turismo")[1].setDisponible(false); // y otro como no disponible
         gestor.guardarEnFichero(fichero);
-
         GestorAlquileres otro = new GestorAlquileres();
         otro.cargarDeFichero(fichero);
 
