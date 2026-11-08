@@ -20,6 +20,7 @@ public abstract class Vehiculo {
         this.annio = annio;
     }
 
+    // [Ej. 3] constructor JSON añadido (protected: solo lo llaman las subclases)
     /**
      * Deserialización: reconstruye los atributos comunes a partir de su
      * representación JSON. Las subclases lo invocan con super(jsonString).
@@ -53,6 +54,7 @@ public abstract class Vehiculo {
         this.disponible = disponible;
     }
 
+    // [Fase 1] método abstracto añadido: cada subclase devuelve su tipo
     /**
      * En serialización/deserialización: para obtener el tipo de
      * vehículo (clase) del objeto.
@@ -60,6 +62,7 @@ public abstract class Vehiculo {
      */
     public abstract String getTipo();
 
+    // [Fase 1] método abstracto añadido: precio base diario de cada subclase
     /**
      * Calcula el precio base diario del vehículo según su categoría y tipo.
      * @return precio base diario del vehículo.

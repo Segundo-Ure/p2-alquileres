@@ -7,6 +7,7 @@ import java.time.LocalDate;
  * Cada política de precios (normal, temporada alta, ofertón, cliente frecuente)
  * es una clase distinta que implementa esta interfaz.
  */
+// [Ej. 2] interfaz Estrategia añadida
 public interface IcalculadorPrecio {
 
     /**

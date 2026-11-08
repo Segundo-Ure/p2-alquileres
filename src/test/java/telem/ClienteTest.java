@@ -8,6 +8,7 @@ import org.junit.Test;
 /**
  * Pruebas unitarias de la clase Cliente.
  */
+// [Ej. 1] clase de pruebas añadida
 public class ClienteTest {
 
     @Test

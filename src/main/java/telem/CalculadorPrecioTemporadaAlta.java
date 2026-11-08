@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 /**
  * Política temporada alta: se duplica el precio base diario.
  */
+// [Ej. 2] estrategia concreta añadida: temporada alta
 public class CalculadorPrecioTemporadaAlta implements IcalculadorPrecio {
 
     @Override

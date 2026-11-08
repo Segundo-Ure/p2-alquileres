@@ -13,6 +13,7 @@ import org.junit.Test;
  * Pruebas unitarias de GestorAlquileres: métodos implementados en el código
  * de partida y métodos completados en el ejercicio 6.
  */
+// [Ej. 1] clase de pruebas añadida (las secciones del ejercicio 6 se añadieron después)
 public class GestorAlquileresTest {
 
     private GestorAlquileres gestor;
@@ -23,7 +24,7 @@ public class GestorAlquileresTest {
     }
 
     // ---------------------------------------------------------------
-    // obtenerVehiculos(tipo)
+    // [Ej. 1] obtenerVehiculos(tipo)
 
     @Test
     public void obtenerTurismosDevuelveSoloTurismos() {
@@ -61,7 +62,7 @@ public class GestorAlquileresTest {
     }
 
     // ---------------------------------------------------------------
-    // agregarAlquiler / obtenerAlquileres
+    // [Ej. 1] agregarAlquiler / obtenerAlquileres
 
     @Test
     public void agregarAlquilerLoGuardaEnOrden() {
@@ -80,7 +81,7 @@ public class GestorAlquileresTest {
     }
 
     // ---------------------------------------------------------------
-    // Ejercicio 6: obtenerVehiculos(tipo, categoria)
+    // [Ej. 6] obtenerVehiculos(tipo, categoria)
 
     @Test
     public void obtenerVehiculosPorTipoYCategoria() {
@@ -111,7 +112,7 @@ public class GestorAlquileresTest {
     }
 
     // ---------------------------------------------------------------
-    // Ejercicio 6: disponibilidad inicial de los vehículos
+    // [Ej. 6] disponibilidad inicial de los vehículos
 
     @Test
     public void todosLosVehiculosEstanDisponiblesAlEmpezar() {
@@ -125,7 +126,7 @@ public class GestorAlquileresTest {
     }
 
     // ---------------------------------------------------------------
-    // Ejercicio 6: obtenerAlquileres(cliente)
+    // [Ej. 6] obtenerAlquileres(cliente)
 
     @Test
     public void clienteSinAlquileresDevuelveArrayVacio() {

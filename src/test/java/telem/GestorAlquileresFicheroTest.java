@@ -23,6 +23,7 @@ import org.junit.rules.TemporaryFolder;
 /**
  * Pruebas de guardar y cargar los datos de GestorAlquileres en un fichero (ejercicio 5).
  */
+// [Ej. 5] clase de pruebas añadida
 public class GestorAlquileresFicheroTest {
 
     // Carpeta temporal que JUnit crea antes de cada test y borra al terminar
@@ -130,7 +131,7 @@ public class GestorAlquileresFicheroTest {
     @Test
     public void cargarConservaLaDisponibilidadDeLosVehiculos() throws IOException {
         anadirAlquileresDeEjemplo(gestor);   // marca el turismo TNA2020 como disponible
-        gestor.obtenerVehiculos("Turismo")[1].setDisponible(false); // y otro como no disponible
+        gestor.obtenerVehiculos("Turismo")[1].setDisponible(false); // [Ej. 6] línea añadida: y otro como no disponible
         gestor.guardarEnFichero(fichero);
         GestorAlquileres otro = new GestorAlquileres();
         otro.cargarDeFichero(fichero);

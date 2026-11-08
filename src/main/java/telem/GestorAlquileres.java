@@ -1,5 +1,6 @@
 package telem;
 
+// [Ej. 5] imports de java.io, java.nio.file y org.json añadidos (LocalDate ya estaba)
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -10,8 +11,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+// [Fase 1] clase añadida desde el Aula Virtual tras fusionar refactor_fechas
 public class GestorAlquileres {
 
+    // [Ej. 5] constante añadida
     /** Fichero que se usa si el usuario no indica otro. */
     public static final String FICHERO_POR_DEFECTO = "alquileres.json";
 
@@ -54,7 +57,7 @@ public class GestorAlquileres {
         vehiculos[7] = new Motocicleta("MEA2026", Categoria.ESPECIAL, 2026, 1000);
         vehiculos[8] = new VehiculoIndustrial("CEA2025", Categoria.ESPECIAL, 2025, 4400, 5);
 
-        // Al empezar, todos los vehículos están disponibles para alquilar
+        // [Ej. 6] bucle añadido: al empezar, todos los vehículos están disponibles para alquilar
         for (Vehiculo vehiculo : vehiculos) {
             if (vehiculo != null) {
                 vehiculo.setDisponible(true);
@@ -91,6 +94,7 @@ public class GestorAlquileres {
      * @return lista de vehículos del tipo y categoría especificados
      */
     public Vehiculo[] obtenerVehiculos(String tipo, Categoria categoria) {
+        // [Ej. 6] implementado (antes devolvía null)
 
         Vehiculo[] vehiculosFiltrados = new Vehiculo[vehiculos.length];
         int contador = 0;
@@ -139,6 +143,7 @@ public class GestorAlquileres {
      * @return array con los alquileres del cliente, vacío si no tiene ninguno.
      */
     public Alquiler[] obtenerAlquileres(Cliente cliente) {
+        // [Ej. 6] implementado: busca por DNI (antes devolvía null)
 
         Alquiler[] alquileresCliente = new Alquiler[contadorAlquileres];
         int contador = 0;
@@ -163,13 +168,14 @@ public class GestorAlquileres {
      */
     private boolean esClienteFrecuente(Cliente cliente, int umbral) {
 
-        // Es frecuente si tiene al menos 'umbral' alquileres previos
+        // [Ej. 6] implementado: es frecuente si tiene al menos 'umbral' alquileres previos
         return obtenerAlquileres(cliente).length >= umbral;
     }
 
 
     /////////////////////////////////////////////////////////////////////////////////////
     // PERSISTENCIA: GUARDAR Y RECUPERAR LOS DATOS EN UN FICHERO DE TEXTO (JSON)
+    // [Ej. 5] sección añadida completa, hasta INTERFAZ DE USUARIO
 
     // Formato del fichero: un único objeto JSON con tres arrays
     //   {"clientes": [...], "vehiculos": [...], "alquileres": [...]}
@@ -332,6 +338,7 @@ public class GestorAlquileres {
                 System.out.println("(1) seleccionar coche para alquilar");
                 System.out.println("(2) entregar un coche alquilado");
                 System.out.println("(3) listar su histórico de alquileres");
+                // [Ej. 5] opciones 4 y 5 añadidas al menú
                 System.out.println("(4) guardar los datos en un fichero");
                 System.out.println("(5) cargar los datos desde un fichero");
 
@@ -347,7 +354,8 @@ public class GestorAlquileres {
                             System.out.println("¿cuántos días desea alquilar el vehículo?");
                             int dias = KeyBoard.readInt();
                             LocalDate inicio = LocalDate.now();
-                            LocalDate fin = inicio.plusDays(dias - 1); // el día de inicio también cuenta
+                            LocalDate fin = inicio.plusDays(dias - 1); // [Ej. 6] dias - 1: el día de inicio también cuenta
+                            // [Ej. 6] comprobación movida antes de registrar el alquiler
                             //Comprobamos si el cliente es usuario frecuente para aplicarle
                             // la tarifa que le corresponde. Se comprueba antes de registrar
                             // el alquiler nuevo para que solo cuenten los alquileres previos.
@@ -357,7 +365,7 @@ public class GestorAlquileres {
                             Alquiler q = new Alquiler(v, cliente, inicio, fin);
                             this.agregarAlquiler(q);
 
-                            // El vehículo deja de estar disponible hasta que se entregue (opción 2)
+                            // [Ej. 6] el vehículo deja de estar disponible hasta que se entregue (opción 2)
                             v.setDisponible(false);
 
                             // Calculamos precio.
@@ -369,6 +377,7 @@ public class GestorAlquileres {
 
                                 // aplicamos tarifa de cliente frecuente.
                                 System.out.println("Alquiler realizado. Tarifa Usuario frecuente.");
+                                // [Ej. 6] precio con la política de cliente frecuente
                                 int precio = q.calcularPrecioAlquiler(inicio, fin, PoliticasDePrecios.ClienteFrecuente, v);
                                 System.out.println("Precio del alquiler: " + precio + " euros");
                             }
@@ -376,6 +385,7 @@ public class GestorAlquileres {
                                 // aplicamos tarifa normal.
                                 System.out.println("Alquiler realizado. Tarifa Normal.");
 
+                                // [Ej. 6] precio con la política normal
                                 int precio = q.calcularPrecioAlquiler(inicio, fin, PoliticasDePrecios.Normal, v);
                                 System.out.println("Precio del alquiler: " + precio + " euros");
                             }
@@ -386,6 +396,7 @@ public class GestorAlquileres {
                         }
                         break;
                     case 2: 
+                        // [Ej. 6] opción implementada (antes «opción no implementada»)
                         // Se buscan los vehículos que el cliente tiene alquilados y aún no ha entregado
                         Alquiler[] historial = obtenerAlquileres(cliente);
                         Vehiculo[] pendientes = new Vehiculo[historial.length];
@@ -420,9 +431,10 @@ public class GestorAlquileres {
                     case 3:
                         Alquiler alqs [] = obtenerAlquileres(cliente);
                         for (Alquiler q: alqs){
-                            System.out.println(q);
+                            System.out.println(q);  // [Ej. 6] println en vez de print
                         }
-                        break;
+                        break;  // [Ej. 5] break añadido: antes la opción 3 seguía al siguiente case
+                    // [Ej. 5] opciones de guardar (4) y cargar (5)
                     case 4:
                         String ficheroGuardar = pedirNombreFichero();
                         try {
@@ -452,6 +464,7 @@ public class GestorAlquileres {
         }
     }
 
+    // [Ej. 5] método añadido
     /**
      * Pide por teclado el nombre de un fichero.
      * @return el nombre introducido, o FICHERO_POR_DEFECTO si se deja en blanco.
@@ -520,7 +533,7 @@ public class GestorAlquileres {
                     break;
                 case 3:
                     System.out.println("Ha seleccionado Vehículo Industrial.");
-                    tipo = "VehiculoIndustrial";
+                    tipo = "VehiculoIndustrial";  // [Ej. 6] sin tilde, igual que getTipo()
                     break;
                 default:
                     System.out.println("Opción inválida. Por favor, seleccione un tipo de vehículo válido.");
@@ -549,6 +562,7 @@ public class GestorAlquileres {
                     elegibles = obtenerVehiculos(tipo, Categoria.ESPECIAL);
                     break;
                 default:
+                    // [Ej. 6] «Cualquiera» ya no filtra por categoría (antes daba solo ESPECIAL)
                     System.out.println("Ha seleccionado cualquier categoría.");
                     elegibles = obtenerVehiculos(tipo);
                     break; // Volver a pedir la selección
@@ -562,6 +576,7 @@ public class GestorAlquileres {
 
             System.out.println("Introduzca número coche (sólo si está disponible)");
             int seleccion = KeyBoard.readInt();
+            // [Ej. 6] validación del número de coche elegido
             if (seleccion < 0 || seleccion >= elegibles.length) {
                 System.out.println("Número de coche inválido. Vuelva a seleccionar.");
                 continue; // Volver a pedir la selección

@@ -7,6 +7,7 @@ import java.time.temporal.ChronoUnit;
  * Política cliente frecuente: 20% de descuento sobre el precio base los tres
  * primeros días y 40% de descuento a partir del cuarto día.
  */
+// [Ej. 2] estrategia concreta añadida: cliente frecuente
 public class CalculadorPrecioClienteFrecuente implements IcalculadorPrecio {
 
     private static final double Descuento_PrimerosDias = 0.20;

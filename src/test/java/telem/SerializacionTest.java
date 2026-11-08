@@ -13,6 +13,7 @@ import org.junit.Test;
  * Pruebas de serialización/deserialización (ejercicio 3):
  * constructores a partir de JSON y FactoriaVehiculos.
  */
+// [Ej. 3] clase de pruebas añadida
 public class SerializacionTest {
 
     /** Dos JSON son equivalentes si tienen los mismos campos y valores, en cualquier orden. */

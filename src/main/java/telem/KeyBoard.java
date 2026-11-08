@@ -10,6 +10,7 @@ import java.io.*;
  *
  * @author japf
  */
+// [Fase 1] clase añadida desde el Aula Virtual tras fusionar refactor_fechas
 public class KeyBoard {
     
     	public static final byte 	BYTE_ERR 	=	Byte.MAX_VALUE;

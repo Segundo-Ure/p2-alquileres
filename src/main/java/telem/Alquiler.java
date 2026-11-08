@@ -1,5 +1,6 @@
 package telem;
 
+// [Fase 1] java.util.Date sustituido por LocalDate y ChronoUnit
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -16,15 +17,16 @@ public class Alquiler {
 
     private Vehiculo vehiculo;
     private Cliente cliente;
-    private LocalDate fechaInicio;
-    private LocalDate fechaFin;
-    private IcalculadorPrecio calculadorPrecio;
+    private LocalDate fechaInicio;  // [Fase 1] antes Date
+    private LocalDate fechaFin;     // [Fase 1] antes Date
+    private IcalculadorPrecio calculadorPrecio;  // [Ej. 2] estrategia de precio en uso
 
     private static Alquiler[] alquileres = new Alquiler[1000];
 
     public static final int PRECIO_BASE = 50;
     private static int contadorAlquileres = 0;
 
+    // [Fase 1] las fechas se reciben como LocalDate (antes Date)
     public Alquiler(Vehiculo vehiculo, Cliente cliente, LocalDate fechaInicio, LocalDate fechaFin) {
         this.vehiculo = vehiculo;
         this.cliente = cliente;
@@ -32,6 +34,7 @@ public class Alquiler {
         this.fechaFin = fechaFin;
     }
 
+    // [Ej. 3] constructor JSON añadido: el vehículo se crea con FactoriaVehiculos
     /**
      * Deserialización: reconstruye un Alquiler a partir de su representación JSON.
      * El vehículo se crea con FactoriaVehiculos porque a priori no se sabe
@@ -68,6 +71,7 @@ public class Alquiler {
         return cliente;
     }
 
+    // [Fase 1] los getters de fechas devuelven LocalDate (antes Date)
     public LocalDate getFechaInicio() {
         return fechaInicio;
     }
@@ -76,12 +80,14 @@ public class Alquiler {
         return fechaFin;
     }
 
+    // [Fase 1] días con ChronoUnit en vez de restar milisegundos de Date
     public int calcularPrecioAlquiler(LocalDate fechaInicio, LocalDate fechaFin) {
         // +1 to include the start day
         int dias = (int) ChronoUnit.DAYS.between(fechaInicio, fechaFin) + 1;
         return dias * PRECIO_BASE;
     }
 
+    // [Ej. 2] método añadido: Alquiler es el contexto y delega el precio en la estrategia
     /**
      * Calcula el precio del alquiler aplicando la política de precios indicada.
      * Obtiene de FactoriaCalculadorPrecio el calculador (estrategia) que
@@ -96,6 +102,7 @@ public class Alquiler {
     public int calcularPrecioAlquiler(LocalDate fechaInicio, LocalDate fechaFin,
             PoliticasDePrecios politica, Vehiculo vehiculo) {
 
+        // [Ej. 4] el switch de políticas se sustituyó por la llamada a la factoría
         calculadorPrecio = FactoriaCalculadorPrecio.getCalculador(politica);
 
         return calculadorPrecio.calcularPrecioAlquiler(fechaInicio, fechaFin, vehiculo);
@@ -110,7 +117,7 @@ public class Alquiler {
         // Crear instancias de Vehiculo y Cliente
         Vehiculo vehiculo1 = new Turismo("ABC123", Categoria.NORMAL, 2020, 5, 400.0);
         Cliente cliente1 = new Cliente("Juan Pérez", "123456789");
-        LocalDate hoy = LocalDate.now();
+        LocalDate hoy = LocalDate.now();  // [Fase 1] LocalDate y plusDays en vez de new Date(...)
         Alquiler alquiler1 = new Alquiler(vehiculo1, cliente1, hoy, hoy.plusDays(3)); // Alquiler de 3 días
 
         System.out.println(alquiler1.toString());
@@ -122,7 +129,7 @@ public class Alquiler {
         System.out.println(alquiler2.toString());
         System.out.println("--------------------------------------------------------");
 
-        // Ejemplo de uso del patrón Estrategia: mismo alquiler, distintas políticas de
+        // [Ej. 2] Ejemplo de uso del patrón Estrategia: mismo alquiler, distintas políticas de
         // precios
         LocalDate inicio = LocalDate.of(2026, 11, 1);
         LocalDate fin = LocalDate.of(2026, 11, 10); // 10 días (del 1 al 10, ambos incluidos)

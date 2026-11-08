@@ -1,6 +1,6 @@
 package telem;
 
-import org.json.JSONObject;
+import org.json.JSONObject;  // [Ej. 3] para el constructor JSON
 
 public class Turismo extends Vehiculo {
 
@@ -15,6 +15,7 @@ public class Turismo extends Vehiculo {
         this.capacidadMaletero = capacidadMaletero;
     }
 
+    // [Ej. 3] constructor de deserialización desde JSON añadido
     /**
      * Deserialización: reconstruye un Turismo a partir de su representación JSON.
      * @param jsonString representación JSON del turismo.
@@ -34,11 +35,13 @@ public class Turismo extends Vehiculo {
         return capacidadMaletero;
     }
 
+    // [Fase 1] implementación de getTipo
     @Override
     public String getTipo() {
         return "Turismo";
     }
 
+    // [Fase 1] implementación de getPrecioBase (precios del guion)
     @Override
     public int getPrecioBase() {
         int precioBase = 0;

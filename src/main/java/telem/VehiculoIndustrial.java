@@ -15,6 +15,7 @@ public class VehiculoIndustrial extends Vehiculo {
         this.numeroEjes = numeroEjes;
     }
 
+    // [Ej. 3] constructor de deserialización desde JSON añadido
     /**
      * Deserialización: reconstruye un VehiculoIndustrial a partir de su representación JSON.
      * @param jsonString representación JSON del vehículo industrial.
@@ -34,11 +35,13 @@ public class VehiculoIndustrial extends Vehiculo {
         return numeroEjes;
     }
 
+    // [Fase 1] implementación de getTipo
     @Override
     public String getTipo() {
         return "VehiculoIndustrial";
     }
 
+    // [Fase 1] implementación de getPrecioBase (precios elegidos por nosotros)
     @Override
     public int getPrecioBase() {
         int precioBase = 0;

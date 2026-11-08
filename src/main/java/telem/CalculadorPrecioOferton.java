@@ -7,6 +7,7 @@ import java.time.temporal.ChronoUnit;
  * Política ofertón: 30% de descuento sobre el precio base diario y,
  * si el alquiler dura más de siete días será un 10% adicional sobre el total.
  */
+// [Ej. 2] estrategia concreta añadida: ofertón
 public class CalculadorPrecioOferton implements IcalculadorPrecio {
 
     private static final double Descuento_Diario = 0.30; // 30% de descuento diario

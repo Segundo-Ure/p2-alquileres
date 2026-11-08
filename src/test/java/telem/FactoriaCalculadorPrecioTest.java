@@ -10,6 +10,7 @@ import org.junit.Test;
 /**
  * Pruebas unitarias de FactoriaCalculadorPrecio (ejercicio 4).
  */
+// [Ej. 4] clase de pruebas añadida
 public class FactoriaCalculadorPrecioTest {
 
     // ---------------------------------------------------------------

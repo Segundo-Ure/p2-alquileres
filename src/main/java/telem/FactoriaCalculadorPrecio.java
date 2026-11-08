@@ -8,6 +8,7 @@ import java.time.LocalDate;
  * (estrategia) hay que crear y lo devuelve. El código que usa la factoría
  * solo conoce la interfaz IcalculadorPrecio, no las clases concretas.
  */
+// [Ej. 4] clase añadida: Método Factoría para las políticas de precios
 public class FactoriaCalculadorPrecio {
 
     /**

@@ -16,6 +16,7 @@ public class Cliente {
         this.dni = dni;
     }
 
+    // [Ej. 3] constructor de deserialización desde JSON añadido
     /**
      * Deserialización: reconstruye un Cliente a partir de su representación JSON.
      * @param jsonString representación JSON del cliente (la que genera toString).

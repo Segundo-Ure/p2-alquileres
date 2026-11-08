@@ -13,6 +13,7 @@ import org.junit.Test;
 /**
  * Pruebas unitarias de la clase Alquiler.
  */
+// [Ej. 1] clase de pruebas añadida
 public class AlquilerTest {
 
     private Vehiculo turismo;

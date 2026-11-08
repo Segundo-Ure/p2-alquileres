@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 /**
  * Política normal: precio base diario x número de días de alquiler.
  */
+// [Ej. 2] estrategia concreta añadida: política normal
 public class CalculadorPrecioNormal implements IcalculadorPrecio {
 
     @Override

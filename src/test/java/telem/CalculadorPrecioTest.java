@@ -11,6 +11,7 @@ import org.junit.Test;
  * Pruebas unitarias del patrón Estrategia (ejercicio 2):
  * las cuatro políticas de precios y su uso desde Alquiler.
  */
+// [Ej. 2] clase de pruebas añadida
 public class CalculadorPrecioTest {
 
     private Vehiculo turismoNormal;   // precio base 50

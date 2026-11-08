@@ -10,6 +10,7 @@ import org.json.JSONObject;
  * campo "tipo", qué subclase hay que crear y llama a su constructor.
  * El código que usa la factoría no necesita conocer las subclases.
  */
+// [Ej. 3] clase añadida: Método Factoría para deserializar vehículos
 public class FactoriaVehiculos {
 
     /**

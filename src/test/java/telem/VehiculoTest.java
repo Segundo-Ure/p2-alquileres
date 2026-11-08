@@ -11,6 +11,7 @@ import org.junit.Test;
  * Pruebas unitarias de Vehiculo y de sus subclases
  * Turismo, Motocicleta y VehiculoIndustrial.
  */
+// [Ej. 1] clase de pruebas añadida
 public class VehiculoTest {
 
     // ---------------------------------------------------------------
